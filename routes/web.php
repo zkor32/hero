@@ -12,11 +12,19 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\HeroController;
+use App\Http\Controllers\ItemController;
+use App\Http\Controllers\EnemyController;   
 
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/home/{name}', function($name){
-    return view ('home', ['name'=> $name])
-    ;
-})->where('name', '[A-Za-z]+');
+
+Route::get('/admin', [AdminController::class,'index']);
+Route::get('/admin/heroes', [HeroController::class,'index']) -> name('admin.heroes');
+Route::get('/admin/enemies', [EnemyController::class,'index'])-> name('admin.enemies');
+Route::get('/admin/items', [ItemController::class,'index'])-> name('admin.items');
+
+
+
