@@ -21,10 +21,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/admin', [AdminController::class,'index']);
-Route::get('/admin/heroes', [HeroController::class,'index']) -> name('admin.heroes');
-Route::get('/admin/enemies', [EnemyController::class,'index'])-> name('admin.enemies');
-Route::get('/admin/items', [ItemController::class,'index'])-> name('admin.items');
+Route::group(['prefix' => 'admin'], function(){ //se utiliza para agrupar con un prefijo todas las rutas en este caso el prefijo de la carpeta "admin"
 
+Route::get('/', [AdminController::class,'index']) -> name('admin'); 
+Route::get('admin/heroes', [HeroController::class,'index']) -> name('admin.heroes');
+Route::get('enemies', [EnemyController::class,'index'])-> name('admin.enemies');
+Route::get('items', [ItemController::class,'index'])-> name('admin.items');
+});
 
 
