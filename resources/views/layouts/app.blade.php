@@ -9,23 +9,23 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-            <a class="navbar-brand" href="{{ route('admin')}}">Hero Admin</a>
+            <a class="navbar-brand" href="{{ route('admin.index')}}">Hero Admin</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="{{ route('admin')}}">Home</a>
+                    <a class="nav-link" aria-current="page" href="{{ route('admin.index')}}">Home</a>
                     </li>
                     <li class="nav-item">
-                    <a class="nav-link" href="{{ route('admin.heroes') }}">Heroes</a>
+                    <a class="nav-link" href="{{ route('heroes.index') }}">Heroes</a>
                     </li>
                     <li class="nav-item">
                     <a class="nav-link" href="{{ route('admin.enemies') }}">Enemigos</a>
                     </li>
                     <li class="nav-item">
-                    <a class="nav-link" href="{{ route('admin.items') }}">Items</a>
+                    <a class="nav-link" href="{{ route('item.index') }}">Items</a>
                     </li>
                     <li class="nav-item">
                     </li>
@@ -34,7 +34,7 @@
         </div>
     </nav>
     
-        <div class="container">
+        <div class="container" style="margin-top: 10px;">
             @yield('content')
         </div>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js" integrity="sha384-q2kxQ16AaE6UbzuKqyBE9/u/KzioAlnx2maXQHiDX9d4/zp8Ok3f+M7DPm+Ib6IU" crossorigin="anonymous"></script>
