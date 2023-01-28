@@ -26,7 +26,7 @@ class ItemController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.items.create');
     }
 
     /**
@@ -37,7 +37,7 @@ class ItemController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return $this->saveItem($request, null);
     }
 
     /**
@@ -59,7 +59,9 @@ class ItemController extends Controller
      */
     public function edit($id)
     {
-        //
+        $item = Item::find($id);
+        
+        return view('admin.items.edit', ['item' => $item]);
     }
 
     /**
@@ -71,7 +73,8 @@ class ItemController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        return $this->saveItem($request, $id);
+
     }
 
     /**
@@ -82,6 +85,47 @@ class ItemController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $item = Item::find($id);
+        $filePath = public_path() . '/images/items/'. $item->img_path;
+        \File::delete($filePath);
+       
+        return redirect()->route('items.index');
+    }
+    public function saveItem(Request $request,$id){
+
+        if($id){
+            $item = Item::find($id);
+        }else { 
+            $item = new Item();
+      
+        }
+
+        $item->name = $request->input('name');
+        $item->hp = $request->input('hp');
+        $item->atq = $request->input('atq');
+        $item->def = $request->input('def');
+        $item->luck = $request->input('luck');
+        $item->cost = $request->input('cost');
+
+        if($request->hasFile('img_path')){
+
+             /* * $filePath = public_path() . '/images/items/'. $item->img_path;
+        \File::delete($filePath);
+        $item->delete();   **/ // codigo a agregar para eliminar la imagen anterior y actualizar la nueva imagen que se cargó
+        
+
+            $file = $request->file('img_path');
+            $name = time() . "_" . $file->getClientOriginalName();
+            $file->move(public_path() . '/images/items', $name );
+
+            $item->img_path = $name;
+        }
+
+      
+
+        $item-> save();
+        return redirect()->route('items.index');
+
+
     }
 }

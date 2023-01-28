@@ -32,7 +32,7 @@
     <tbody>
       @foreach ($heroes as $hero)
           <tr>
-              <th scope="row">{{ $hero->id }}</th>
+              <th>{{ $hero->id }}</th>
               <td>{{ $hero->name }}</td>
               <td>{{ $hero->hp }}</td>
               <td>{{ $hero->atq }}</td>
@@ -40,14 +40,17 @@
               <td>{{ $hero->luck }}</td>
               <td>{{ $hero->coins }}</td>
               <td>{{ $hero->xp }}</td>
+            
+
               <td>
               <div class="row">
                 <div class="col">
                   <a href="{{ route('heroes.edit', ['hero' => $hero->id]) }}" class="btn btn-warning">Modificar</a>
                 </div>
                 <div class="col">
+
                                                 <!-- Button trigger modal -->
-                          <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                          <button type="button" id="btnmodal" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal<?php echo $hero['id']; ?>" data-hid="{{ $hero->id }}">
                             Borrar
                           </button>
 
@@ -56,10 +59,31 @@
               </div>            
 
               </td>
+                      <script >
+                                      $(document).on("click", "#btnmodal",function () {
+                                        
+                                              var heroid =$(this).data('hid');
+                                         
+
+                                        $("#heroid").val(heroid);
+                                        
+
+
+                                        
+                                      });
+
+
+
+
+
+                    </script>
+ 
+
 
       
                   <!-- Modal -->
-                  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                 
+                  <div class="modal fade" id="exampleModal<?php echo $hero['id']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
                               <div class="modal-content">
                                 <div class="modal-header">
@@ -67,20 +91,41 @@
                                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                  Se va a Borrar el héroe seleccionado
+                                <?php    
+                                
+                                            
+                                            $mid = ($hero['id']);
+                                            $mname = ($hero['name']);
+                                          
+                                            //echo "The variable  has converted to a number and its value is $mname.";  
+                                            //echo "\n";
+                                            ?>
+                                  
+
+                                            
+                                            
+
+
+                                  ¿Estás seguro de borrar a el héroe <?php echo "<b>$mname</b>"; ?>?.
+                                  <!--<label>nombre  : </label><input type="text" id="heroid" name="" > <br></label>
                                 </div>
+                                    -->
+                                
                                 <div class="modal-footer">
                                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                  <form action="{{ route('heroes.destroy', ['hero' => $hero->id])}}" method= "POST">
+                                
+                                  <form action="{{ route('heroes.destroy', $mid) }}" method= "POST">
                                       @csrf
                                       @method('DELETE')
                                       <button type="submit" class="btn btn-danger">Borrar</button>
+                               
                                   </form>
                                 </div>
                               </div>
                             </div>
                           </div>
-                          @endforeach
+                               @endforeach
+                    
 
   
 </div>

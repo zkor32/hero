@@ -16,6 +16,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\HeroController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\EnemyController;   
+use App\Http\Controllers\BScontroller;  
 
 Route::get('/', function () {
     return view('welcome');
@@ -23,7 +24,7 @@ Route::get('/', function () {
 
 Route::group(['prefix' => 'admin'], function(){ //se utiliza para agrupar con un prefijo todas las rutas en este caso el prefijo de la carpeta "admin"
     Route::resource('heroes', HeroController::class);
-    
+        
     
   /*  Route::group(['prefix' => 'heroes'], function(){
 
@@ -45,9 +46,27 @@ Route::group(['prefix' => 'admin'], function(){ //se utiliza para agrupar con un
 
 
 Route::get('/', [AdminController::class,'index']) -> name('admin.index'); 
+Route::get('bs', [BScontroller::class, 'index'])->name('admin.bs');
 
-Route::get('enemies', [EnemyController::class,'index'])-> name('admin.enemies');
-Route::resource('item', ItemController::class);
+Route::resource('enemies', EnemyController::class);
+Route::resource('items', ItemController::class);
+
 });
 
 
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
